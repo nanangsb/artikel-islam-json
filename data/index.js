@@ -4,9 +4,9 @@ const fs = require('fs');
 
 const app = express();
 
-app.get('/api/:name', (req, res) => {
-  const { name } = req.params;
-  const filePath = path.join(__dirname, `${name}.json`);
+app.get('/api/:folder/:name', (req, res) => {
+  const { folder, name } = req.params;
+  const filePath = path.join(__dirname, folder, `${name}.json`);
 
   fs.readFile(filePath, (err, data) => {
     if (err) {
