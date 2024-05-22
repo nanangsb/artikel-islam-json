@@ -1,20 +1,15 @@
-const express = require('express');
-const fs = require('fs');
-const path = require('path');
-
-const app = express();
-
-app.get('/api/:name', (req, res) => {
-  const { name } = req.params;
-  const filePath = path.join(__dirname, `${name}.json`);
-
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      res.status(404).send('File not found');
-    } else {
-      res.json(JSON.parse(data));
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "data/index.js",
+      "use": "@vercel/node"
     }
-  });
-});
-
-module.exports = app;
+  ],
+  "routes": [
+    {
+      "src": "/data/(.*)",
+      "dest": "/data/index.js"
+    }
+  ]
+}
